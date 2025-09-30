@@ -1,312 +1,242 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Você, com Amor ❤️</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      background: linear-gradient(135deg, #8B0000, #b22222);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      color: #fff8dc;
-      position: relative;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Você, com Amor ❤️</title>
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0; padding: 0; overflow-x: hidden;
+  background: linear-gradient(135deg, #8B0000, #b22222);
+  display: flex; justify-content: center; align-items: center;
+  height: 100vh; text-align: center; color: #fff8dc; position: relative;
+}
+.container {
+  position: relative; z-index: 2;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px; border-radius: 20px;
+  box-shadow: 0 0 30px gold;
+  max-width: 950px; width: 90%; height: auto;
+}
+h1 {
+  font-size: 3em; margin-bottom: 15px;
+  color: gold; text-shadow: 2px 2px 8px #000;
+}
+p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px gold;
-      max-width: 950px;
-      width: 90%;
-      height: auto;
-    }
+/* Carrossel */
+.carousel {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  gap: 20px; padding: 10px; margin-bottom: 20px;
+  scroll-behavior: smooth;
+}
+.carousel img {
+  flex: none; scroll-snap-align: center;
+  width: 260px; height: 180px; object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 15px;
-      color: gold;
-      text-shadow: 2px 2px 8px #000;
-    }
+/* Corações animados */
+.heart {
+  position: absolute; width: 20px; height: 20px; background-color: red;
+  transform: rotate(45deg);
+  animation: floatUp 10s linear infinite;
+}
+.heart::before, .heart::after {
+  content: ''; position: absolute; width: 20px; height: 20px; background-color: red;
+  border-radius: 50%;
+}
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: -10px; top: 0; }
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
 
-    p {
-      font-size: 1.4em;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
+.video { margin-top: 20px; }
+.spotify-player { margin-top: 25px; }
+.countdown { margin-top: 20px; font-size: 1.8em; font-weight: bold; color: gold; }
+.footer { margin-top: 30px; font-size: 1em; opacity: 0.9; }
 
-    /* Carrossel */
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 20px;
-      padding: 10px;
-      margin-bottom: 20px;
-    }
+/* Botões de poemas à esquerda */
+.poem-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.poem-buttons button {
+  padding: 10px 20px; background-color: gold;
+  color: #8B0000; border: none; border-radius: 10px;
+  font-weight: bold; cursor: pointer; transition: background 0.3s;
+}
+.poem-buttons button:hover { background-color: #ffd700; }
+.poem {
+  display: none; margin-top: 15px;
+  font-style: italic; color: #ffe4e1;
+  text-align: justify;
+}
 
-    .carousel img {
-      flex: none;
-      scroll-snap-align: center;
-      width: 260px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    }
-
-    /* Corações animados */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      transform: rotate(45deg);
-      animation: floatUp 10s linear infinite;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
-    }
-
-    .video {
-      margin-top: 20px;
-    }
-
-    .spotify-player {
-      margin-top: 25px;
-    }
-
-    .countdown {
-      margin-top: 20px;
-      font-size: 1.8em;
-      font-weight: bold;
-      color: gold;
-    }
-
-    .footer {
-      margin-top: 30px;
-      font-size: 1em;
-      opacity: 0.9;
-    }
-
-    .poem-buttons {
-      margin-top: 20px;
-    }
-
-    .poem-buttons button {
-      margin: 5px;
-      padding: 10px 20px;
-      background-color: gold;
-      color: #8B0000;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .poem-buttons button:hover {
-      background-color: #ffd700;
-    }
-
-    .poem {
-      display: none;
-      margin-top: 15px;
-      font-style: italic;
-      color: #ffe4e1;
-    }
-
-    /* Mural lateral */
-    .mural {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .mural img {
-      width: 120px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 2px 2px 10px #000;
-      transform: rotate(-10deg);
-    }
-
-    .mural img:nth-child(2) {
-      transform: rotate(5deg);
-    }
-
-    .mural img:nth-child(3) {
-      transform: rotate(-7deg);
-    }
-
-  </style>
+/* Mural lateral */
+.mural {
+  position: absolute; right: 10px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 20px;
+}
+.mural img {
+  width: 180px; height: 140px;
+  object-fit: cover; border-radius: 12px;
+  box-shadow: 2px 2px 10px #000;
+  cursor: grab; transition: transform 0.3s;
+}
+.mural img:active { cursor: grabbing; transform: scale(1.1) rotate(3deg); }
+</style>
 </head>
 <body>
+<!-- Corações animados -->
+<div class="heart" style="left:10%; animation-delay: 0s;"></div>
+<div class="heart" style="left:25%; animation-delay: 2s;"></div>
+<div class="heart" style="left:40%; animation-delay: 4s;"></div>
+<div class="heart" style="left:55%; animation-delay: 1s;"></div>
+<div class="heart" style="left:70%; animation-delay: 3s;"></div>
+<div class="heart" style="left:85%; animation-delay: 5s;"></div>
 
-  <!-- Corações animados -->
-  <div class="heart" style="left:10%; animation-delay: 0s;"></div>
-  <div class="heart" style="left:25%; animation-delay: 2s;"></div>
-  <div class="heart" style="left:40%; animation-delay: 4s;"></div>
-  <div class="heart" style="left:55%; animation-delay: 1s;"></div>
-  <div class="heart" style="left:70%; animation-delay: 3s;"></div>
-  <div class="heart" style="left:85%; animation-delay: 5s;"></div>
+<div class="container">
+  <h1>Para Você, com Todo Meu Amor ❤️</h1>
+  <p>Meu amor, neste dia especial, quero te lembrar o quanto você é importante para mim.  
+  Cada momento ao seu lado é um presente, e meu coração transborda de gratidão por te ter na minha vida.  
+  Seu sorriso ilumina meus dias, sua presença me completa, e seu amor me fortalece.  
+  Que esta data seja apenas mais uma das muitas que ainda comemoraremos juntos, lado a lado, coração com coração.  
+  Eu te amo mais do que palavras podem expressar, e tudo o que desejo é te ver feliz, hoje e sempre.  
+  Feliz aniversário, meu amor! 💖</p>
 
-  <div class="container">
-    <h1>Para Você, com Todo Meu Amor ❤️</h1>
-    <p>Meu amor, neste dia especial, quero te lembrar o quanto você é importante para mim.
-    Cada momento ao seu lado é um presente, e meu coração transborda de gratidão por te ter na minha vida.
-    Seu sorriso ilumina meus dias, sua presença me completa, e seu amor me fortalece.
-    Que esta data seja apenas mais uma das muitas que ainda comemoraremos juntos, lado a lado, coração com coração.
-    Eu te amo mais do que palavras podem expressar, e tudo o que desejo é te ver feliz, hoje e sempre.
-    Feliz aniversário, meu amor! 💖</p>
-
-    <!-- Carrossel de imagens -->
-    <div class="carousel">
-      <img src="casal1.jpg" alt="Foto 1">
-      <img src="casal2.jpg" alt="Foto 2">
-      <img src="casal3.jpg" alt="Foto 3">
-      <img src="casal4.jpg" alt="Foto 4">
-      <img src="casal5.jpg" alt="Foto 5">
-    </div>
-
-    <!-- Espaço para vídeo -->
-    <div class="video">
-      <video width="100%" height="280" controls>
-        <source src="https://www.youtube.com/embed/iXOtncW_7UM" type="video/mp4">
-        Seu navegador não suporta o elemento de vídeo.
-      </video>
-    </div>
-
-    <!-- Botões de poemas -->
-    <div class="poem-buttons">
-      <button onclick="togglePoem(1)">Poema 1</button>
-      <button onclick="togglePoem(2)">Poema 2</button>
-    </div>
-
-    <div id="poem1" class="poem">“De tudo ao meu amor serei atento
-Antes, e com tal zelo, e sempre, e tanto
-Que mesmo em face do maior encanto
-Dele se encante mais meu pensamento.
-
-Quero vivê-lo em cada vão momento
-E em seu louvor hei de espalhar meu canto
-E rir meu riso e derramar meu pranto
-Ao seu pesar ou seu contentamento.
-
-E assim, quando mais tarde me procure
-Quem sabe a morte, angústia de quem vive
-Quem sabe a solidão, fim de quem ama
-
-Eu possa me dizer do amor (que tive):
-Que não seja imortal, posto que é chama
-Mas que seja infinito enquanto dure.”</div>
-    <div id="poem2" class="poem">“Se você sabe que eu sou seu
-e ainda assim me deseja,
-como quem toca e acende uma brasa,
-então você é tudo.
-
-Se você sabe que eu me desmancho,
-que não suporto seu cheiro
-sem querer mais e mais,
-e mesmo assim se aproxima,
-então não me culpe se eu arder.
-
-Porque amor é isso:
-dois corpos que sabem
-que vão se incendiar,
-e mesmo assim,
-se jogam no fogo.”</div>
-
-    <!-- Contagem regressiva -->
-    <div class="countdown" id="countdown">Carregando contagem...</div>
-
-    <!-- Player Spotify -->
-    <div class="spotify-player">
-      <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/1tLBXifMqnSqLZrk1Rsl8n" 
-        width="100%" 
-        height="152" 
-        frameborder="0" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-      </iframe>
-    </div>
-
-    <div class="footer">❤️ Com todo carinho do mundo, só para você ❤️</div>
+  <!-- Carrossel de imagens -->
+  <div class="carousel" id="carousel">
+    <img src="casal1.jpg" alt="Foto 1">
+    <img src="casal2.jpg" alt="Foto 2">
+    <img src="casal3.jpg" alt="Foto 3">
+    <img src="casal4.jpg" alt="Foto 4">
+    <img src="casal5.jpg" alt="Foto 5">
   </div>
 
-  <!-- Mural lateral -->
-  <div class="mural">
-    <img src="casal6.jpg" alt="Mural 1">
-    <img src="casal7.jpg" alt="Mural 2">
-    <img src="casal8.jpg" alt="Mural 3">
+  <!-- Vídeo YouTube embed -->
+  <div class="video">
+    <iframe width="100%" height="280" src="https://www.youtube.com/embed/iXOtncW_7UM" 
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen></iframe>
   </div>
 
-  <!-- Scripts -->
-  <script>
-    // Contagem regressiva
-    const birthday = new Date("2025-12-25T00:00:00").getTime();
-    const countdownElement = document.getElementById("countdown");
+  <!-- Botões de poemas -->
+  <div class="poem-buttons">
+    <button onclick="togglePoem(1)">Poema 1</button>
+    <button onclick="togglePoem(2)">Poema 2</button>
+  </div>
 
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = birthday - now;
+  <div id="poem1" class="poem">
+    “De tudo ao meu amor serei atento<br>
+    Antes, e com tal zelo, e sempre, e tanto<br>
+    Que mesmo em face do maior encanto<br>
+    Dele se encante mais meu pensamento.<br><br>
 
-      if (distance <= 0) {
-        clearInterval(interval);
-        countdownElement.innerHTML = "🎉 Eu te amo! 🎉";
-        return;
-      }
+    Quero vivê-lo em cada vão momento<br>
+    E em seu louvor hei de espalhar meu canto<br>
+    E rir meu riso e derramar meu pranto<br>
+    Ao seu pesar ou seu contentamento.<br><br>
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    E assim, quando mais tarde me procure<br>
+    Quem sabe a morte, angústia de quem vive<br>
+    Quem sabe a solidão, fim de quem ama<br><br>
 
-      countdownElement.innerHTML = `Faltam ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
+    Eu possa me dizer do amor (que tive):<br>
+    Que não seja imortal, posto que é chama<br>
+    Mas que seja infinito enquanto dure.”
+  </div>
 
-    // Alternar poema
-    function togglePoem(id) {
-      const poem = document.getElementById("poem" + id);
-      poem.style.display = poem.style.display === "block" ? "none" : "block";
-    }
-  </script>
+  <div id="poem2" class="poem">
+    “Se você sabe que eu sou seu e ainda assim me deseja,<br>
+    como quem toca e acende uma brasa,<br>
+    então você é tudo.<br><br>
+
+    Se você sabe que eu me desmancho,<br>
+    que não suporto seu cheiro sem querer mais e mais,<br>
+    e mesmo assim se aproxima,<br>
+    então não me culpe se eu arder.<br><br>
+
+    Porque amor é isso:<br>
+    dois corpos que sabem que vão se incendiar,<br>
+    e mesmo assim, se jogam no fogo.”
+  </div>
+
+  <!-- Contagem regressiva -->
+  <div class="countdown" id="countdown">Carregando contagem...</div>
+
+  <!-- Player Spotify -->
+  <div class="spotify-player">
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1tLBXifMqnSqLZrk1Rsl8n"
+      width="100%" height="152" frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  </div>
+
+  <div class="footer">❤️ Com todo carinho do mundo, só para você ❤️</div>
+</div>
+
+<!-- Mural lateral -->
+<div class="mural">
+  <img src="casal6.jpg" alt="Mural 1" draggable="true">
+  <img src="casal7.jpg" alt="Mural 2" draggable="true">
+  <img src="casal8.jpg" alt="Mural 3" draggable="true">
+</div>
+
+<!-- Scripts -->
+<script>
+// Contagem regressiva
+const birthday = new Date("2025-12-25T00:00:00").getTime();
+const countdownElement = document.getElementById("countdown");
+const interval = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = birthday - now;
+  if (distance <= 0) {
+    clearInterval(interval);
+    countdownElement.innerHTML = "🎉 Eu te amo! 🎉";
+    return;
+  }
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  countdownElement.innerHTML = `Faltam ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}, 1000);
+
+// Alternar poema
+function togglePoem(id) {
+  const poem = document.getElementById("poem" + id);
+  poem.style.display = poem.style.display === "block" ? "none" : "block";
+}
+
+// Carrossel automático
+const carousel = document.getElementById("carousel");
+let autoScroll = setInterval(() => {
+  carousel.scrollBy({ left: 280, behavior: "smooth" });
+  if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
+    carousel.scrollTo({ left: 0, behavior: "smooth" });
+  }
+}, 3000);
+
+// Pausar carrossel ao interagir
+carousel.addEventListener("mousedown", () => clearInterval(autoScroll));
+carousel.addEventListener("touchstart", () => clearInterval(autoScroll));
+
+// Mural: animação ao clicar
+document.querySelectorAll(".mural img").forEach(img => {
+  img.addEventListener("click", () => {
+    img.style.transform = "scale(1.1) rotate(5deg)";
+    setTimeout(() => img.style.transform = "scale(1) rotate(0)", 500);
+  });
+});
+</script>
 </body>
 </html>
+
