@@ -27,12 +27,11 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
 
 /* Carrossel */
 .carousel {
-  display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  display: flex; overflow: hidden;
   gap: 20px; padding: 10px; margin-bottom: 20px;
-  scroll-behavior: smooth;
 }
 .carousel img {
-  flex: none; scroll-snap-align: center;
+  flex: none;
   width: 260px; height: 180px; object-fit: cover;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -60,12 +59,15 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
 .countdown { margin-top: 20px; font-size: 1.8em; font-weight: bold; color: gold; }
 .footer { margin-top: 30px; font-size: 1em; opacity: 0.9; }
 
-/* Botões de poemas à esquerda */
+/* Botões de poemas - na lateral esquerda */
 .poem-buttons {
-  margin-top: 20px;
+  position: absolute;
+  left: 20px; top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   gap: 10px;
+  z-index: 3;
 }
 .poem-buttons button {
   padding: 10px 20px; background-color: gold;
@@ -86,12 +88,15 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
   display: flex; flex-direction: column; gap: 20px;
 }
 .mural img {
-  width: 180px; height: 140px;
+  width: 220px; height: 170px;
   object-fit: cover; border-radius: 12px;
   box-shadow: 2px 2px 10px #000;
   cursor: grab; transition: transform 0.3s;
+  transform: rotate(-3deg);
 }
-.mural img:active { cursor: grabbing; transform: scale(1.1) rotate(3deg); }
+.mural img:nth-child(2) { transform: rotate(2deg); }
+.mural img:nth-child(3) { transform: rotate(-2deg); }
+.mural img:active { cursor: grabbing; transform: scale(1.1) rotate(0deg); }
 </style>
 </head>
 <body>
@@ -103,14 +108,20 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
 <div class="heart" style="left:70%; animation-delay: 3s;"></div>
 <div class="heart" style="left:85%; animation-delay: 5s;"></div>
 
+<!-- Botões de poemas -->
+<div class="poem-buttons">
+  <button onclick="togglePoem(1)">Poema 1</button>
+  <button onclick="togglePoem(2)">Poema 2</button>
+</div>
+
 <div class="container">
   <h1>Para Você, com Todo Meu Amor ❤️</h1>
-  <p>Meu amor, neste dia especial, quero te lembrar o quanto você é importante para mim.  
-  Cada momento ao seu lado é um presente, e meu coração transborda de gratidão por te ter na minha vida.  
-  Seu sorriso ilumina meus dias, sua presença me completa, e seu amor me fortalece.  
-  Que esta data seja apenas mais uma das muitas que ainda comemoraremos juntos, lado a lado, coração com coração.  
-  Eu te amo mais do que palavras podem expressar, e tudo o que desejo é te ver feliz, hoje e sempre.  
-  Feliz aniversário, meu amor! 💖</p>
+  <p>Meu amor, neste dia especial, quero te lembrar o quanto você é importante para mim.
+    Cada momento ao seu lado é um presente, e meu coração transborda de gratidão por te ter na minha vida.
+    Seu sorriso ilumina meus dias, sua presença me completa, e seu amor me fortalece.
+    Que esta data seja apenas mais uma das muitas que ainda comemoraremos juntos, lado a lado, coração com coração.
+    Eu te amo mais do que palavras podem expressar,
+    e tudo o que desejo é te ver feliz, hoje e sempre. Feliz aniversário, meu amor! 💖</p>
 
   <!-- Carrossel de imagens -->
   <div class="carousel" id="carousel">
@@ -129,46 +140,19 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
       allowfullscreen></iframe>
   </div>
 
-  <!-- Botões de poemas -->
-  <div class="poem-buttons">
-    <button onclick="togglePoem(1)">Poema 1</button>
-    <button onclick="togglePoem(2)">Poema 2</button>
-  </div>
-
   <div id="poem1" class="poem">
-    “De tudo ao meu amor serei atento<br>
-    Antes, e com tal zelo, e sempre, e tanto<br>
-    Que mesmo em face do maior encanto<br>
-    Dele se encante mais meu pensamento.<br><br>
-
-    Quero vivê-lo em cada vão momento<br>
-    E em seu louvor hei de espalhar meu canto<br>
-    E rir meu riso e derramar meu pranto<br>
-    Ao seu pesar ou seu contentamento.<br><br>
-
-    E assim, quando mais tarde me procure<br>
-    Quem sabe a morte, angústia de quem vive<br>
-    Quem sabe a solidão, fim de quem ama<br><br>
-
-    Eu possa me dizer do amor (que tive):<br>
-    Que não seja imortal, posto que é chama<br>
-    Mas que seja infinito enquanto dure.”
-  </div>
+   “De tudo ao meu amor serei atento<br> Antes, e com tal zelo, e sempre, e tanto<br> Que mesmo em face do maior encanto<br>
+    Dele se encante mais meu pensamento.<br><br> Quero vivê-lo em cada vão momento<br> E em seu louvor hei de espalhar meu canto<br>
+    E rir meu riso e derramar meu pranto<br> Ao seu pesar ou seu contentamento.<br><br> E assim, quando mais tarde me procure<br> Quem sabe a morte,
+    angústia de quem vive<br> Quem sabe a solidão, fim de quem ama
+    <br><br> Eu possa me dizer do amor (que tive):<br> Que não seja imortal,
+    posto que é chama<br> Mas que seja infinito enquanto dure.” </div>
 
   <div id="poem2" class="poem">
-    “Se você sabe que eu sou seu e ainda assim me deseja,<br>
-    como quem toca e acende uma brasa,<br>
-    então você é tudo.<br><br>
-
-    Se você sabe que eu me desmancho,<br>
-    que não suporto seu cheiro sem querer mais e mais,<br>
-    e mesmo assim se aproxima,<br>
-    então não me culpe se eu arder.<br><br>
-
-    Porque amor é isso:<br>
-    dois corpos que sabem que vão se incendiar,<br>
-    e mesmo assim, se jogam no fogo.”
-  </div>
+   “Se você sabe que eu sou seu e ainda assim me deseja,<br> como quem toca e acende uma brasa,<br>
+    então você é tudo.<br><br> Se você sabe que eu me desmancho,<br> que não suporto seu cheiro sem querer mais e mais,<br>
+    e mesmo assim se aproxima,<br> então não me culpe se eu arder.<br><br>
+    Porque amor é isso:<br> dois corpos que sabem que vão se incendiar,<br> e mesmo assim, se jogam no fogo.” </div>
 
   <!-- Contagem regressiva -->
   <div class="countdown" id="countdown">Carregando contagem...</div>
@@ -218,22 +202,21 @@ function togglePoem(id) {
 
 // Carrossel automático
 const carousel = document.getElementById("carousel");
-let autoScroll = setInterval(() => {
-  carousel.scrollBy({ left: 280, behavior: "smooth" });
-  if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
-    carousel.scrollTo({ left: 0, behavior: "smooth" });
+let scrollAmount = 0;
+function autoScrollCarousel() {
+  scrollAmount += 280;
+  if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+    scrollAmount = 0;
   }
-}, 3000);
-
-// Pausar carrossel ao interagir
-carousel.addEventListener("mousedown", () => clearInterval(autoScroll));
-carousel.addEventListener("touchstart", () => clearInterval(autoScroll));
+  carousel.scrollTo({ left: scrollAmount, behavior: "smooth" });
+}
+setInterval(autoScrollCarousel, 2500);
 
 // Mural: animação ao clicar
 document.querySelectorAll(".mural img").forEach(img => {
   img.addEventListener("click", () => {
-    img.style.transform = "scale(1.1) rotate(5deg)";
-    setTimeout(() => img.style.transform = "scale(1) rotate(0)", 500);
+    img.style.transform = "scale(1.1)";
+    setTimeout(() => img.style.transform = "", 500);
   });
 });
 </script>
