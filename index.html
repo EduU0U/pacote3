@@ -7,96 +7,69 @@
 <style>
 body {
   font-family: 'Arial', sans-serif;
-  margin: 0; padding: 0; overflow-x: hidden;
+  margin: 0; padding: 0; overflow: hidden;
   background: linear-gradient(135deg, #8B0000, #b22222);
   display: flex; justify-content: center; align-items: center;
-  height: 100vh; text-align: center; color: #fff8dc; position: relative;
+  min-height: 100vh; text-align: center; color: #fff8dc; position: relative;
 }
 .container {
   position: relative; z-index: 2;
   background: rgba(0, 0, 0, 0.6);
-  padding: 40px; border-radius: 20px;
-  box-shadow: 0 0 30px gold;
-  max-width: 950px; width: 90%; height: auto;
+  padding: 20px; border-radius: 20px;
+  box-shadow: 0 0 20px gold;
+  max-width: 900px; width: 95%; height: 95vh;
+  overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
 }
 h1 {
-  font-size: 3em; margin-bottom: 15px;
+  font-size: 1.8em; margin-bottom: 10px;
   color: gold; text-shadow: 2px 2px 8px #000;
 }
-p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
+p { font-size: 1em; line-height: 1.4; margin-bottom: 15px; overflow-y: auto; max-height: 20%; }
 
 /* Carrossel */
-.carousel {
-  display: flex; overflow: hidden;
-  gap: 20px; padding: 10px; margin-bottom: 20px;
-}
-.carousel img {
-  flex: none;
-  width: 260px; height: 180px; object-fit: cover;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
+.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px; padding: 5px; margin: 10px 0; }
+.carousel img { flex: none; width: 70%; max-width: 200px; height: 120px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); scroll-snap-align: start; }
 
 /* Corações animados */
-.heart {
-  position: absolute; width: 20px; height: 20px; background-color: red;
-  transform: rotate(45deg);
-  animation: floatUp 10s linear infinite;
-}
-.heart::before, .heart::after {
-  content: ''; position: absolute; width: 20px; height: 20px; background-color: red;
-  border-radius: 50%;
-}
-.heart::before { top: -10px; left: 0; }
-.heart::after { left: -10px; top: 0; }
+.heart { position: absolute; width: 14px; height: 14px; background-color: red; transform: rotate(45deg); animation: floatUp 10s linear infinite; }
+.heart::before, .heart::after { content: ''; position: absolute; width: 14px; height: 14px; background-color: red; border-radius: 50%; }
+.heart::before { top: -7px; left: 0; }
+.heart::after { left: -7px; top: 0; }
 @keyframes floatUp {
   0% { transform: translateY(0) scale(1); opacity: 1; }
   100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
 }
 
-.video { margin-top: 20px; }
-.spotify-player { margin-top: 25px; }
-.countdown { margin-top: 20px; font-size: 1.8em; font-weight: bold; color: gold; }
-.footer { margin-top: 30px; font-size: 1em; opacity: 0.9; }
+.video iframe { border-radius: 12px; }
 
-/* Botões de poemas - na lateral esquerda */
-.poem-buttons {
-  position: absolute;
-  left: 20px; top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 3;
-}
-.poem-buttons button {
-  padding: 10px 20px; background-color: gold;
-  color: #8B0000; border: none; border-radius: 10px;
-  font-weight: bold; cursor: pointer; transition: background 0.3s;
-}
+/* Spotify */
+.spotify-player { margin-top: 10px; }
+
+/* Contagem */
+.countdown { margin-top: 10px; font-size: 1.1em; font-weight: bold; color: gold; }
+
+/* Rodapé */
+.footer { margin-top: 10px; font-size: 0.8em; opacity: 0.9; }
+
+/* Botões de poemas */
+.poem-buttons { display: flex; justify-content: center; gap: 5px; margin-bottom: 5px; flex-wrap: wrap; }
+.poem-buttons button { padding: 8px 12px; background-color: gold; color: #8B0000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: background 0.3s; font-size: 0.9em; }
 .poem-buttons button:hover { background-color: #ffd700; }
-.poem {
-  display: none; margin-top: 15px;
-  font-style: italic; color: #ffe4e1;
-  text-align: justify;
-}
+.poem { display: none; margin-top: 10px; font-style: italic; color: #ffe4e1; text-align: justify; font-size: 0.9em; max-height: 15%; overflow-y: auto; }
 
-/* Mural lateral */
-.mural {
-  position: absolute; right: 10px; top: 50%;
-  transform: translateY(-50%);
-  display: flex; flex-direction: column; gap: 20px;
+/* Mural */
+.mural { display: flex; justify-content: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.mural img { width: 30%; max-width: 100px; height: 80px; object-fit: cover; border-radius: 8px; box-shadow: 2px 2px 6px #000; cursor: grab; transition: transform 0.3s; }
+.mural img:active { cursor: grabbing; transform: scale(1.05); }
+
+/* Ajustes desktop */
+@media (min-width: 768px) {
+  h1 { font-size: 2.5em; }
+  p { font-size: 1.2em; }
+  .mural { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); flex-direction: column; margin-top: 0; }
+  .mural img { width: 180px; height: 130px; }
+  .poem-buttons { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); flex-direction: column; }
 }
-.mural img {
-  width: 220px; height: 170px;
-  object-fit: cover; border-radius: 12px;
-  box-shadow: 2px 2px 10px #000;
-  cursor: grab; transition: transform 0.3s;
-  transform: rotate(-3deg);
-}
-.mural img:nth-child(2) { transform: rotate(2deg); }
-.mural img:nth-child(3) { transform: rotate(-2deg); }
-.mural img:active { cursor: grabbing; transform: scale(1.1) rotate(0deg); }
 </style>
 </head>
 <body>
@@ -108,12 +81,6 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
 <div class="heart" style="left:70%; animation-delay: 3s;"></div>
 <div class="heart" style="left:85%; animation-delay: 5s;"></div>
 
-<!-- Botões de poemas -->
-<div class="poem-buttons">
-  <button onclick="togglePoem(1)">Poema 1</button>
-  <button onclick="togglePoem(2)">Poema 2</button>
-</div>
-
 <div class="container">
   <h1>Para Você, com Todo Meu Amor ❤️</h1>
   <p>Meu amor, neste dia especial, quero te lembrar o quanto você é importante para mim.
@@ -122,6 +89,14 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
     Que esta data seja apenas mais uma das muitas que ainda comemoraremos juntos, lado a lado, coração com coração.
     Eu te amo mais do que palavras podem expressar,
     e tudo o que desejo é te ver feliz, hoje e sempre. Feliz aniversário, meu amor! 💖</p>
+
+  <!-- Botões de poemas -->
+  <div class="poem-buttons">
+    <button onclick="togglePoem(1)">Poema 1</button>
+    <button onclick="togglePoem(2)">Poema 2</button>
+  </div>
+  <div id="poem1" class="poem">“De tudo ao meu amor serei atento...<br>Mas que seja infinito enquanto dure.”</div>
+  <div id="poem2" class="poem">“Se você sabe que eu sou seu...<br>e mesmo assim, se jogam no fogo.”</div>
 
   <!-- Carrossel de imagens -->
   <div class="carousel" id="carousel">
@@ -132,46 +107,33 @@ p { font-size: 1.4em; line-height: 1.6; margin-bottom: 25px; }
     <img src="casal5.jpg" alt="Foto 5">
   </div>
 
-  <!-- Vídeo YouTube embed -->
+  <!-- Vídeo -->
   <div class="video">
-    <iframe width="100%" height="280" src="https://www.youtube.com/embed/iXOtncW_7UM" 
+    <iframe width="100%" height="180" src="https://www.youtube.com/embed/iXOtncW_7UM"
       title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe>
   </div>
-
-  <div id="poem1" class="poem">
-   “De tudo ao meu amor serei atento<br> Antes, e com tal zelo, e sempre, e tanto<br> Que mesmo em face do maior encanto<br>
-    Dele se encante mais meu pensamento.<br><br> Quero vivê-lo em cada vão momento<br> E em seu louvor hei de espalhar meu canto<br>
-    E rir meu riso e derramar meu pranto<br> Ao seu pesar ou seu contentamento.<br><br> E assim, quando mais tarde me procure<br> Quem sabe a morte,
-    angústia de quem vive<br> Quem sabe a solidão, fim de quem ama
-    <br><br> Eu possa me dizer do amor (que tive):<br> Que não seja imortal,
-    posto que é chama<br> Mas que seja infinito enquanto dure.” </div>
-
-  <div id="poem2" class="poem">
-   “Se você sabe que eu sou seu e ainda assim me deseja,<br> como quem toca e acende uma brasa,<br>
-    então você é tudo.<br><br> Se você sabe que eu me desmancho,<br> que não suporto seu cheiro sem querer mais e mais,<br>
-    e mesmo assim se aproxima,<br> então não me culpe se eu arder.<br><br>
-    Porque amor é isso:<br> dois corpos que sabem que vão se incendiar,<br> e mesmo assim, se jogam no fogo.” </div>
 
   <!-- Contagem regressiva -->
   <div class="countdown" id="countdown">Carregando contagem...</div>
 
-  <!-- Player Spotify -->
+  <!-- Spotify -->
   <div class="spotify-player">
     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1tLBXifMqnSqLZrk1Rsl8n"
-      width="100%" height="152" frameborder="0"
+      width="100%" height="80" frameborder="0"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
   </div>
 
+  <!-- Rodapé -->
   <div class="footer">❤️ Com todo carinho do mundo, só para você ❤️</div>
-</div>
 
-<!-- Mural lateral -->
-<div class="mural">
-  <img src="casal6.jpg" alt="Mural 1" draggable="true">
-  <img src="casal7.jpg" alt="Mural 2" draggable="true">
-  <img src="casal8.jpg" alt="Mural 3" draggable="true">
+  <!-- Mural -->
+  <div class="mural">
+    <img src="casal6.jpg" alt="Mural 1" draggable="true">
+    <img src="casal7.jpg" alt="Mural 2" draggable="true">
+    <img src="casal8.jpg" alt="Mural 3" draggable="true">
+  </div>
 </div>
 
 <!-- Scripts -->
@@ -204,7 +166,7 @@ function togglePoem(id) {
 const carousel = document.getElementById("carousel");
 let scrollAmount = 0;
 function autoScrollCarousel() {
-  scrollAmount += 280;
+  scrollAmount += 220;
   if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
     scrollAmount = 0;
   }
@@ -212,7 +174,7 @@ function autoScrollCarousel() {
 }
 setInterval(autoScrollCarousel, 2500);
 
-// Mural: animação ao clicar
+// Mural animação
 document.querySelectorAll(".mural img").forEach(img => {
   img.addEventListener("click", () => {
     img.style.transform = "scale(1.1)";
@@ -222,4 +184,3 @@ document.querySelectorAll(".mural img").forEach(img => {
 </script>
 </body>
 </html>
-
